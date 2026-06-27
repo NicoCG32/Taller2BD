@@ -1,5 +1,4 @@
--- Taller 2 - Base de Datos
--- Poblacion de tablas con datos genericos.
+-- 1.5 Poblacion de tablas con datos genericos.
 
 INSERT INTO orbitas (peso_maximo, altitud) VALUES
     (35000, 100),

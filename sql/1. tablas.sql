@@ -1,6 +1,4 @@
--- Taller 2 - Base de Datos
--- Definicion de tablas segun el MR documentado.
--- Motor objetivo: PostgreSQL.
+-- 1. Tablas
 
 DROP TABLE IF EXISTS
     componentes_material,

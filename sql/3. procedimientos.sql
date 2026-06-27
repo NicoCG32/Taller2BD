@@ -1,4 +1,7 @@
---1. Un procedimiento que reciba el id de una nave y actualice el resultado de todas sus evaluaciones "Reprobadas" a estado "Pendiente" para iniciar una nueva ronda de testeos.
+-- 3. Procedimientos
+ 
+-- 1. Un procedimiento que reciba el id de una nave y actualice el resultado de todas sus evaluaciones 
+-- "Reprobadas" a estado "Pendiente" para iniciar una nueva ronda de testeos.
 
 CREATE OR REPLACE FUNCTION actualizar_evaluacion_nave(
     e_id_nave INT
@@ -29,7 +32,8 @@ BEGIN
 END;
 $$;
 
---2. Un procedimiento que reciba el RUT de un proveedor origen y el RUT de un proveedor destino, y actualice todos los componentes del primero para traspasarlos al segundo.
+-- 2. Un procedimiento que reciba el RUT de un proveedor origen y el RUT de un proveedor destino, 
+-- y actualice todos los componentes del primero para traspasarlos al segundo.
 
 CREATE OR REPLACE FUNCTION traspasar_componentes(
     rut_original TEXT,
@@ -60,7 +64,8 @@ BEGIN
 END;
 $$;
 
---3. Un procedimiento que reciba el código de un protocolo y una fecha, y elimine los registros de aquellas evaluaciones realizadas antes de esa fecha usando dicho protocolo.
+-- 3. Un procedimiento que reciba el código de un protocolo y una fecha,
+-- y elimine los registros de aquellas evaluaciones realizadas antes de esa fecha usando dicho protocolo.
 
 CREATE OR REPLACE FUNCTION eliminar_evaluaciones_fecha(
     e_codigo_protocolo TEXT,
@@ -90,7 +95,3 @@ BEGIN
         evaluaciones.resultado;
 END;
 $$;
-
-
-
-

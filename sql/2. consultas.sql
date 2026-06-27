@@ -1,5 +1,4 @@
--- Taller 2 - Base de Datos
--- Consultas y subconsultas solicitadas.
+-- 2. Consultas y subconsultas solicitadas.
 
 -- 1. Listar cada órbita mostrando su id, altitud y la cantidad total de evaluaciones con
 -- resultado "Reprobado" (o el estado de fallo que hayan definido) correspondientes a
