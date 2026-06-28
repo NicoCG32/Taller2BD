@@ -17,6 +17,10 @@ RETURNS TABLE (
 LANGUAGE plpgsql
 AS $$
 BEGIN
+    IF e_id_nave IS NULL THEN
+        RAISE EXCEPTION 'El id de la nave no puede ser NULL';
+    END IF;
+
     RETURN QUERY
     UPDATE evaluaciones
     SET resultado = 'PENDIENTE'
@@ -50,6 +54,14 @@ RETURNS TABLE(
 LANGUAGE plpgsql
 AS $$
 BEGIN
+    IF rut_original IS NULL THEN
+        RAISE EXCEPTION 'El RUT del proveedor origen no puede ser NULL';
+    END IF;
+
+    IF rut_destino IS NULL THEN
+        RAISE EXCEPTION 'El RUT del proveedor destino no puede ser NULL';
+    END IF;
+
     RETURN QUERY
     UPDATE componentes
     SET rut_empresa = rut_destino
@@ -69,7 +81,7 @@ $$;
 
 CREATE OR REPLACE FUNCTION eliminar_evaluaciones_fecha(
     e_codigo_protocolo TEXT,
-    fecha DATE
+    e_fecha_limite DATE
 )
 RETURNS TABLE (
     id_evaluacion INT,
@@ -82,10 +94,18 @@ RETURNS TABLE (
 LANGUAGE plpgsql
 AS $$
 BEGIN
+    IF e_codigo_protocolo IS NULL THEN
+        RAISE EXCEPTION 'El codigo del protocolo no puede ser NULL';
+    END IF;
+
+    IF e_fecha_limite IS NULL THEN
+        RAISE EXCEPTION 'La fecha limite no puede ser NULL';
+    END IF;
+
     RETURN QUERY
     DELETE FROM evaluaciones
     WHERE evaluaciones.codigo_protocolo = e_codigo_protocolo
-      AND evaluaciones.fecha_evaluacion < fecha
+      AND evaluaciones.fecha_evaluacion < e_fecha_limite
     RETURNING
         evaluaciones.id_evaluacion,
         evaluaciones.id_nave,

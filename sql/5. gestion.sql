@@ -9,6 +9,8 @@ GRANT SELECT, INSERT, UPDATE ON orbitas TO administradores;
 GRANT SELECT, INSERT, UPDATE ON materiales TO administradores;
 GRANT SELECT, INSERT, UPDATE ON fabricantes TO administradores;
 GRANT SELECT, INSERT, UPDATE ON naves TO administradores;
+GRANT SELECT, INSERT, UPDATE ON modulos_tripulados TO administradores;
+GRANT SELECT, INSERT, UPDATE ON modulos_aterrizaje TO administradores;
 GRANT SELECT, INSERT, UPDATE ON componentes TO administradores;
 
 CREATE USER elena WITH PASSWORD 'claveseguraElena';
