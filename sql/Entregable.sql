@@ -1,7 +1,3 @@
--- ============================================================
--- Archivo fuente: 1. tablas.sql
--- ============================================================
-
 -- 1. Tablas
 
 DROP TABLE IF EXISTS
@@ -100,11 +96,6 @@ CREATE TABLE evaluaciones (
     CHECK (resultado IN ('APROBADO', 'REPROBADO', 'EN REVISION', 'PENDIENTE')),
     UNIQUE (id_nave, codigo_protocolo, fecha_evaluacion)
 );
-
-
--- ============================================================
--- Archivo fuente: 1.5. poblacion.sql
--- ============================================================
 
 -- 1.5 Poblacion de tablas con datos genericos.
 
@@ -257,10 +248,23 @@ INSERT INTO evaluaciones (id_nave, codigo_protocolo, fecha_evaluacion, responsab
     (8, 'SEG-004', '2026-05-23', 'Inspectora Laura', 'REPROBADO'),
     (8, 'SEG-006', '2026-05-24', 'Inspector Javier', 'REPROBADO');
 
+-- Test de cumplimiento de elementos mínimos
 
--- ============================================================
--- Archivo fuente: 2. consultas.sql
--- ============================================================
+SELECT 'orbitas' AS tabla , COUNT (*) AS total FROM orbitas
+UNION ALL SELECT 'operaciones', COUNT (*) FROM operaciones
+UNION ALL SELECT 'naves', COUNT (*) FROM naves
+UNION ALL SELECT 'modulos_tripulados', COUNT (*) FROM modulos_tripulados
+UNION ALL SELECT 'modulos_aterrizaje', COUNT (*) FROM modulos_aterrizaje
+UNION ALL SELECT 'materiales', COUNT (*) FROM materiales
+UNION ALL SELECT 'fabricantes', COUNT (*) FROM fabricantes
+UNION ALL SELECT 'instalaciones', COUNT (*) FROM instalaciones
+UNION ALL SELECT 'protocolos', COUNT (*) FROM protocolos
+UNION ALL SELECT 'componentes', COUNT (*) FROM componentes
+UNION ALL SELECT 'componentes_material', COUNT (*) FROM componentes_material
+UNION ALL SELECT 'evaluaciones', COUNT (*) FROM evaluaciones
+ORDER BY tabla ;
+
+
 
 -- 2. Consultas y subconsultas solicitadas.
 
@@ -332,12 +336,12 @@ WHERE conteo_materiales.cantidad_componentes = (
 ORDER BY conteo_materiales.id_material;
 
 
--- ============================================================
--- Archivo fuente: 3. procedimientos.sql
--- ============================================================
 
--- 3. Procedimientos
- 
+-- 3. Procedimientos Almacenados
+-- Nota: Se implementaron como FUNCTIONS en lugar de PROCEDURES, 
+-- para simplificar el resultado esperado pues las funciones pueden 
+-- retornar un conjunto de resultados sin necesidad de una consulta.
+
 -- 1. Un procedimiento que reciba el id de una nave y actualice el resultado de todas sus evaluaciones 
 -- "Reprobadas" a estado "Pendiente" para iniciar una nueva ronda de testeos.
 
@@ -455,9 +459,6 @@ END;
 $$;
 
 
--- ============================================================
--- Archivo fuente: 4. triggers.sql
--- ============================================================
 
 -- 4. Triggers 
 
@@ -522,8 +523,6 @@ ON componentes
 FOR EACH ROW
 EXECUTE FUNCTION validar_peso_componente();
 
-
-
 -- Trigger 2: Guardar historial al cambiar resultado
 DROP TRIGGER IF EXISTS trg_historial_evaluaciones ON evaluaciones;
 DROP FUNCTION IF EXISTS registrar_historial_evaluaciones();
@@ -556,9 +555,6 @@ FOR EACH ROW
 EXECUTE FUNCTION registrar_historial_evaluaciones();
 
 
--- ============================================================
--- Archivo fuente: 5. gestion.sql
--- ============================================================
 
 -- 5. Gestión de usuarios y roles
 
